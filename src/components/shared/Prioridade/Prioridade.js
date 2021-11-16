@@ -5,13 +5,13 @@ const Prioridade = (props) => {
   let prioriTexto = "";
 
   if (props.prio === 0) {
-    prioriCor = "bg-red-400 flex p-2 justify-center";
+    prioriCor = "bg-red-400 flex p-2 justify-center w-8";
     prioriTexto = "!!!";
   } else if (props.prio === 1) {
-    prioriCor = "bg-yellow-500 flex p-2 justify-center";
+    prioriCor = "bg-yellow-500 flex p-2 justify-center w-8";
     prioriTexto = "!!";
   } else if (props.prio === 2) {
-    prioriCor = "bg-green-500 flex p-2 justify-center";
+    prioriCor = "bg-green-500 flex p-2 justify-center w-8";
     prioriTexto = "!";
   }
   return (
