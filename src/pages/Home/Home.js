@@ -14,8 +14,8 @@ const Home = () => {
     setTodos(data);
   };
   return (
-    <div className="m-2 p-8">
-      <div className="text-6xl">Bem vindo!</div>
+    <div className="container">
+      
       <ListTodos data={todos} />
     </div>
   );
