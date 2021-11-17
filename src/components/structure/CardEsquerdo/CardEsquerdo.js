@@ -11,7 +11,7 @@ const CardEsquerdo = (props) => {
      <div className="flex flex-col bg-gradient-to-r from-blue-800 to-red-800 w-36 border-2 m-4 shadow-2xl">
          <div className="flex bg-white text-9xl p-2 justify-center">{bigNumber}</div>
          <div className="flex bg-white text-base p-2 justify-center" style={{fontVariant: "small-caps"}}>{texto}</div>
-         <div className="flex bg-white place-self-end" style={porcentagem}>&nbsp;</div>
+         <div className="flex bg-white place-self-end border-t-2" style={porcentagem}>&nbsp;</div>
          
     </div>
   );

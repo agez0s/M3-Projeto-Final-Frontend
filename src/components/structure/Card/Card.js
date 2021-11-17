@@ -18,10 +18,12 @@ const Card = (props) => {
       className="flex flex-col w-1/4 h-40 border-2 m-4 shadow-xl"
     >
       <div className="flex justify-between border-b-2 bg-gray-50 h-10">
-      <div className="w-full text-2xl flex truncate pl-4 bg-gradient-to-l from-white to-gray-100">
-        {todo.titulo}
-      </div>
-      <div className="flex w-10 justify-center items-center bg-red-600">✖️</div>
+        <div className="w-full text-2xl flex truncate pl-4 bg-gradient-to-l from-white to-gray-100">
+          {todo.titulo}
+        </div>
+        <div className="flex w-10 justify-center items-center bg-red-600">
+          ✖️
+        </div>
       </div>
       <div
         className="p-2 h-20 max-h-20 overflow-hidden"
@@ -29,11 +31,13 @@ const Card = (props) => {
       >
         {todo.descricao}
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between border-t-2">
         <div className="flex justify-center">
           <Prioridade prio={todo.prioridade} />
         </div>
-        <div className="w-full flex justify-end pr-2 items-center bg-gradient-to-r from-white to-gray-100"><Prazo prazo={todo.prazo}/></div>
+        <div className="w-full flex justify-end pr-2 items-center bg-gradient-to-r from-white to-gray-100">
+          <Prazo prazo={todo.prazo} />
+        </div>
       </div>
     </div>
   );
