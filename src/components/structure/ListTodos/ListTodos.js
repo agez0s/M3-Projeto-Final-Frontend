@@ -9,13 +9,13 @@ const ListTodos = (props) => {
 
   let hoje = new Date().toISOString();
   todos.forEach((todo) => {
-    if (todo.prioridade === 0) {
+    if (todo.prioridade === 0 && todo.status !== 2) {
       todoAlta++;
     }
-    if (todo.prazo < hoje) {
+    if (todo.prazo < hoje && todo.status !== 2) {
       todoPassouPrazo++;
     }
-    if (todo.status !== 0) {
+    if (todo.status !== 2) {
       todoFazendo++;
     }
   });
@@ -46,7 +46,7 @@ const ListTodos = (props) => {
         </CardEsquerdo>
       </div>
       <div
-        className="flex flex-wrap m-4 p-4 self-start justify-evenly"
+        className="flex flex-wrap m-4 p-4 self-start m-auto justify-center"
         style={{ maxWidth: "60%" }}
       >
         <div
@@ -58,6 +58,7 @@ const ListTodos = (props) => {
         {todos.map((todo) => (
           <Card data={todo} key={todo._id} />
         ))}
+        
       </div>
     </div>
   );

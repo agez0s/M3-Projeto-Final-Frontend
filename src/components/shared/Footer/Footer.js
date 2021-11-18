@@ -7,7 +7,7 @@ const Footer = () => {
       <div class="mx-auto flex mt-4 text-gray-100">agez0s@gmail.com</div>
       <div class="text-2xl mx-auto">
         <a href="https://github.com/agez0s" target="_blank" rel="noreferrer">
-          <i class="fab fa-github-square"></i>
+          <i class="fab fa-github-square m-2"></i>
         </a>
 
         <a
