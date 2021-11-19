@@ -10,13 +10,16 @@ import Footer from "./components/shared/Footer/Footer";
 function App() {
   return (
     <>
+      
       <Header />
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/view/:id" element={<View/>}/>
         <Route path="/edit/:id" element={<Edit/>}/>
       </Routes>
+      
       <Footer />
     </>
   );

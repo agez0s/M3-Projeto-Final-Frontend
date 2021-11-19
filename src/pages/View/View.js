@@ -12,7 +12,7 @@ const View = () => {
   // chamando a funcao getMusicaById
   useEffect(() => {
     getTodoById();
-  }, []);
+  });
 
   // acessa o id no parametro da url;
   const { id } = useParams();
@@ -26,40 +26,10 @@ const View = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row my-5">
-        <div className="col-6">
-          <div className="card my-5">
-            <h1 className="text-center my-4">
-              <b>Nome: </b>
-              {todo.titulo}
-            </h1>
-            <h3 className="text-center">
-              <b>Autor: </b>
-              {todo.prazo}
-            </h3>
-            <h4 className="text-center">
-              <b>Genero: </b> {todo.prioridade}
-            </h4>
-            <h5 className="text-center">
-              <b>Duracao: </b>
-              {todo.dataCriacao}
-            </h5>
-            <h6 className="text-center">
-              <b>Data de Criação: </b>
-              {todo.descricao}
-            </h6>
-            <div className="btn-group mt-3 w-100">
-              <Link to={`/edit/${todo._id}`} className="btn btn-info">
-                Editar
-              </Link>
-              <button className="btn btn-danger">Excluir</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div>
+      Teste
     </div>
-  );
+    );
 };
 
 export default View;
