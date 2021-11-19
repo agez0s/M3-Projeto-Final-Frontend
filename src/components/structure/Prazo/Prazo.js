@@ -9,7 +9,7 @@ const Prazo = (props) => {
   if (diasDiferentes < 0) {
     return "Prazo perdido";
   } else {
-    return `${diasDiferentes} dias`;
+    return `${diasDiferentes - 1} dias`;
   }
 };
 return `Tarefa concluída!`

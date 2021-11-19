@@ -74,6 +74,7 @@ const Cadastro = () => {
             type="text"
             placeholder="Título da tarefa"
             name="titulo"
+            required
           />
 
           <label
@@ -88,6 +89,7 @@ const Cadastro = () => {
             type="text"
             placeholder="Descrição"
             name="descricao"
+            required
           />
 
           <label htmlFor="prazo" className="block text-gray-700 font-bold my-2">
@@ -98,6 +100,7 @@ const Cadastro = () => {
             type="datetime-local"
             name="prazo"
             className="border rounded border-blue w-full"
+            required
           />
 
           <label
