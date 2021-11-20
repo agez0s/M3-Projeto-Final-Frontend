@@ -73,11 +73,41 @@ const View = () => {
     statusTodo = `A fazer`;
   }
 
-  const handleDelete = async () => {
-    const response = await Api.fetchDelete(id);
-    const data = await response.json();
-    navigate("/");
-  };
+  const handleDelete = async (evento) => {
+    evento.preventDefault()
+    const botao = evento.target.botaoDelete;
+    botao.innerHTML = "<i class='fa fa-spinner fa-spin'></i> Deletando...";
+
+    const request = await Api.fetchDelete(id);
+    if (request.status === 500) {
+      botao.className =
+        "bg-red-500 text-white font-bold py-2 px-4 rounded mt-4 w-full cursor-wait";
+      botao.innerText = "⚠️ Erro no servidor";
+      botao.disabled = true;
+      
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+    const response = await request.json();
+    if (response.message === "Erro no servidor") {
+      botao.className =
+        "bg-red-500 text-white font-bold py-2 px-4 rounded mt-4 w-full cursor-wait";
+      botao.innerHTML = "⚠️Erro no servidor";
+      botao.disabled = true;
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    } else {
+      botao.className =
+        "bg-green-500 text-white font-bold py-2 px-4 rounded mt-4 w-full cursor-wait";
+      botao.innerHTML = "🗑️ Tarefa deletada!";
+      botao.disabled = true;
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+    };
   return (
     <div className="flex flex-col self-center m-4 border-2 border-black w-1/3 rounded shadow-xl">
       <div className="flex p-4 text-4xl border-b-2 border-dashed border-black">
@@ -120,8 +150,10 @@ const View = () => {
       </div>
 
       <Modal open={open} onClose={onCloseModal} center>
-        <h2>Confirma exclusão da tarefa?</h2>
-        <button onClick={handleDelete}>Sim</button>
+        
+        <div className="flex flex-col text-xl m-4">Confirma exclusão da tarefa?<form onSubmit={handleDelete}>
+        <button type="submit" id="botaoDelete" className="my-4 w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Sim</button>
+        </form></div>
       </Modal>
     </div>
   );

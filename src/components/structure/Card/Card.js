@@ -20,7 +20,7 @@ const Card = (props) => {
       className="flex flex-col w-1/4 h-40 border-2 m-4 shadow-xl"
     >
       <div className="flex justify-between border-b-2 bg-gray-50 h-10">
-        <div className="w-full text-xl flex truncate bg-gradient-to-l from-white to-gray-100 justify-center">
+        <div className="w-full text-xl flex truncate bg-gradient-to-l from-white to-gray-100 justify-center items-center">
           {todo.titulo}
         </div>
         

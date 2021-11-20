@@ -35,7 +35,6 @@ const Cadastro = () => {
       }, 3000);
     }
     const result = await request.json();
-    console.log(result);
     if (result.message === "Erro no servidor") {
       botao.className =
         "bg-red-500 text-white font-bold py-2 px-4 rounded mt-4 w-full cursor-wait";
@@ -83,21 +82,21 @@ const Cadastro = () => {
           >
             Descrição
           </label>
-          <input
-            className="border rounded border-blue"
+          <textarea
+            className="border rounded border-blue resize-none"
             id="descricao"
             type="text"
             placeholder="Descrição"
             name="descricao"
             required
-          />
+          ></textarea>
 
           <label htmlFor="prazo" className="block text-gray-700 font-bold my-2">
             Prazo da tarefa
           </label>
           <input
             id="prazo"
-            type="datetime-local"
+            type="date"
             name="prazo"
             className="border rounded border-blue w-full"
             required

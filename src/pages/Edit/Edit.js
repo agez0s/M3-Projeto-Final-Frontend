@@ -25,13 +25,42 @@ const Edit = () => {
   };
 
   const handleSubmit = async (evento) => {
-    console.log(todo)
-    console.log(id)
     evento.preventDefault();
+    const botao = evento.target.botao;
+    botao.innerHTML = "<i class='fa fa-spinner fa-spin'></i> Enviando...";
     const request = await Api.fetchPut(todo, id);
+    if (request.status === 500) {
+      botao.className =
+        "bg-red-500 text-white font-bold py-2 px-4 rounded mt-4 w-full cursor-wait";
+      botao.innerText = "⚠️ Erro no servidor";
+      botao.disabled = true;
+      
+      setTimeout(() => {
+        navigate(`/view/${todo.id}`);
+      }, 3000);
+    }
+
     const response = await request.json();
-    console.log(response)
-    navigate(`../view/${id}`);
+    if (response.message === "Erro no servidor") {
+      botao.className =
+        "bg-red-500 text-white font-bold py-2 px-4 rounded mt-4 w-full cursor-wait";
+      botao.innerText = "⚠️ Erro no servidor";
+      botao.disabled = true;
+      
+      setTimeout(() => {
+        navigate(`/view/${todo.id}`);
+      }, 3000);
+    }
+    else {
+      botao.className =
+        "bg-green-500 text-white font-bold py-2 px-4 rounded mt-4 w-full cursor-wait";
+      botao.innerHTML = "✏️ Tarefa editada!";
+      botao.disabled = true;
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+    
   };
 
   return (
@@ -64,8 +93,8 @@ const Edit = () => {
           >
             Descrição
           </label>
-          <input
-            className="border rounded border-blue"
+          <textarea
+            className="border rounded border-blue resize-none"
             id="descricao"
             type="text"
             onChange={handleFieldsChange}
@@ -73,14 +102,14 @@ const Edit = () => {
             placeholder="Descrição"
             name="descricao"
             required
-          />
+          ></textarea>
 
           <label htmlFor="prazo" className="block text-gray-700 font-bold my-2">
             Prazo da tarefa
           </label>
           <input
             id="prazo"
-            type="datetime-local"
+            type="date"
             name="prazo"
             value={todo.prazo}
             onChange={handleFieldsChange}
@@ -98,7 +127,6 @@ const Edit = () => {
             id="prioridade"
             name="prioridade"
             className="w-full"
-            value={todo.prioridade}
             onChange={handleFieldsChange}
             
           >
@@ -108,7 +136,25 @@ const Edit = () => {
           </select>
           <br />
 
-          <input id="status" type="hidden" name="status" value="0" />
+          <label
+            htmlFor="prioridade"
+            className="block text-gray-700 font-bold my-2"
+          >
+            Status
+          </label>
+          <select
+            id="status"
+            name="status"
+            className="w-full"
+            onChange={handleFieldsChange}
+            
+          >
+            <option value="0">A fazer</option>
+            <option value="1">Fazendo</option>
+            <option value="2">Feito</option>
+          </select>
+          
+
           <button
             type="submit"
             id="botao"
