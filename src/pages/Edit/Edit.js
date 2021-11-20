@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,  useNavigate } from "react-router-dom";
 import Api from "../../api/api";
 
 const Edit = () => {
-  // acessa o id no parametro da url;
-  const { id } = useParams();
-  // inicializar o meu estado do objeto musica
+  const navigate = useNavigate()
   const [todo, setTodo] = useState({});
-
-  // use Effect chama a funcao que retorna o objeto do backend de acordo com o id
   useEffect(() => {
     getTodoById();
-  })
+  }, []); //eslint-disable-next-line no-use-before-define
+
+  const { id } = useParams();
 
   const getTodoById = async () => {
     const request = await Api.fetchGetById(id);
@@ -20,115 +18,105 @@ const Edit = () => {
   };
 
   const handleFieldsChange = (evento) => {
-    // copia do objeto musicas
-    const campos = { ...todo }
+    const campos = { ...todo };
 
-    // para cada input eu atualizo o seu respectivo valor no obj
     campos[evento.target.name] = evento.target.value;
-
-    console.log(campos);
     setTodo(campos);
+  };
 
-  }
+  const handleSubmit = async (evento) => {
+    console.log(todo)
+    console.log(id)
+    evento.preventDefault();
+    const request = await Api.fetchPut(todo, id);
+    const response = await request.json();
+    console.log(response)
+    navigate(`../view/${id}`);
+  };
 
   return (
     <div className="container">
-      <div className="card mt-4">
-        <div className="card-title">
-          <div className="row">
-            <div className="col">
-              <h3 className="mx-3 my-3">Edição da Música</h3>
-            </div>
-          </div>
-        </div>
-        <div className="card-body">
-          <form>
-            <div className="row mb-4">
-              <div className="col-4">
-                <div className="form-group">
-                  <label htmlFor="nome">Nome da musica:</label>
-                  <input
-                    id="nome"
-                    className="form-control"
-                    type="text"
-                    placeholder="Nome da musica"
-                    value={todo.titulo}
-                    onChange={handleFieldsChange}
-                    name="nome"
-                  />
-                </div>
-              </div>
-              <div className="col-4">
-                <div className="form-group">
-                  <label htmlFor="autor">Nome do autor:</label>
-                  <input
-                    id="autor"
-                    type="text"
-                    className="form-control"
-                    placeholder="Nome do autor"
-                    value={todo.descricao}
-                    onChange={handleFieldsChange}
-                    name="autor"
-                  />
-                </div>
-              </div>
-              <div className="col-4">
-                <div className="form-group">
-                  <label htmlFor="genero">Genero da musica:</label>
-                  <input
-                    id="genero"
-                    type="text"
-                    className="form-control"
-                    value={todo.status}
-                    onChange={handleFieldsChange}
-                    placeholder="Genero da musica"
-                    name="genero"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-4">
-                <div className="form-group">
-                  <label htmlFor="capa">Capa do album:</label>
-                  <input
-                    id="capa"
-                    type="text"
-                    value={todo.prioridade}
-                    onChange={handleFieldsChange}
-                    className="form-control"
-                    placeholder="URL da capa do album"
-                    name="capa"
-                  />
-                </div>
-              </div>
-              <div className="col-4">
-                <div className="form-group">
-                  <label htmlFor="duracao">Duração da musica:</label>
-                  <input
-                    id="duracao"
-                    type="time"
-                    value={todo.titulo}
-                    onChange={handleFieldsChange}
-                    className="form-control"
-                    min="00:00"
-                    max="10:00"
-                    placeholder="Duraçao da musica"
-                    name="duracao"
-                  />
-                </div>
-              </div>
-              <div className="col-4 d-flex align-items-end justify-content-around">
-                <button type="submit" className="btn btn-success">
-                  Enviar
-                </button>
-                <button type="button" className="btn btn-danger">
-                  Voltar
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
+      <div className="flex text-4xl p-4 m-auto justify-center">
+        Editando tarefa
+      </div>
+      <div className="flex p-4 text-xl border-2 m-auto rounded-xl shadow-xl w-1/2 justify-center">
+        <form onSubmit={handleSubmit}>
+          <label
+            htmlFor="titulo"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Título da tarefa
+          </label>
+          <input
+            className="border rounded border-blue"
+            id="titulo"
+            type="text"
+            value={todo.titulo}
+            placeholder="Título da tarefa"
+            onChange={handleFieldsChange}
+            name="titulo"
+            required
+          />
+
+          <label
+            htmlFor="descricao"
+            className="block text-gray-700 font-bold my-2 w-full"
+          >
+            Descrição
+          </label>
+          <input
+            className="border rounded border-blue"
+            id="descricao"
+            type="text"
+            onChange={handleFieldsChange}
+            value={todo.descricao}
+            placeholder="Descrição"
+            name="descricao"
+            required
+          />
+
+          <label htmlFor="prazo" className="block text-gray-700 font-bold my-2">
+            Prazo da tarefa
+          </label>
+          <input
+            id="prazo"
+            type="datetime-local"
+            name="prazo"
+            value={todo.prazo}
+            onChange={handleFieldsChange}
+            className="border rounded border-blue w-full"
+            required
+          />
+
+          <label
+            htmlFor="prioridade"
+            className="block text-gray-700 font-bold my-2"
+          >
+            Prioridade
+          </label>
+          <select
+            id="prioridade"
+            name="prioridade"
+            className="w-full"
+            value={todo.prioridade}
+            onChange={handleFieldsChange}
+            
+          >
+            <option value="0">Alta</option>
+            <option value="1">Média</option>
+            <option value="2">Baixa</option>
+          </select>
+          <br />
+
+          <input id="status" type="hidden" name="status" value="0" />
+          <button
+            type="submit"
+            id="botao"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none mt-4 focus:shadow-outline w-full"
+          >
+            Enviar
+          </button>
+        </form>
       </div>
     </div>
   );

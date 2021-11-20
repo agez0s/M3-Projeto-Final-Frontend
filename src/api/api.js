@@ -10,6 +10,20 @@ const Api = {
           "Content-Type": "application/json"
         })
       })
+    },
+    fetchPut: (todo, id) => {
+      return fetch(`${Api.apiUrl}/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(todo),
+        headers: new Headers({
+          "Content-type": "application/json"
+        })
+      })
+    },
+    fetchDelete: (id) => {
+      return fetch(`${Api.apiUrl}/${id}`, {
+        method: 'DELETE'
+      })
     }
   }
   

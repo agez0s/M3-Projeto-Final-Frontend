@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Api from "../../api/api";
 
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
+
 const View = () => {
   // inicializa o estado musica para poder fazer as alteracoes do dom.
+  const navigate = useNavigate();
+
   const [todo, setTodo] = useState({});
+
+  const [open, setOpen] = useState(false);
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
 
   // chama o use effect sem parametro de dependencia (executa uma vez ao renderizar o componente)
   // chamando a funcao getMusicaById
@@ -31,10 +41,10 @@ const View = () => {
   let dataCriacao = new Date(todo.dataCriacao).toLocaleString(undefined, {
     day: "numeric",
     month: "numeric",
-    year: "numeric"
-  })
+    year: "numeric",
+  });
   let hoje = new Date().toISOString();
-  let textoPrazo = '';
+  let textoPrazo = "";
   let diasDiferentes = Math.floor(
     (Date.parse(todo.prazo) - Date.parse(hoje)) / 86400000
   );
@@ -45,7 +55,7 @@ const View = () => {
     textoPrazo = `em ${diasDiferentes} dias`;
   }
 
-  let prioridade = '' 
+  let prioridade = "";
   if (todo.prioridade === 0) {
     prioridade = "Alta";
   } else if (todo.prioridade === 1) {
@@ -54,7 +64,7 @@ const View = () => {
     prioridade = "Baixa";
   }
 
-  let statusTodo = ''
+  let statusTodo = "";
   if (todo.status === 2) {
     statusTodo = `Feito`;
   } else if (todo.status === 1) {
@@ -63,6 +73,11 @@ const View = () => {
     statusTodo = `A fazer`;
   }
 
+  const handleDelete = async () => {
+    const response = await Api.fetchDelete(id);
+    const data = await response.json();
+    navigate("/");
+  };
   return (
     <div className="flex flex-col self-center m-4 border-2 border-black w-1/3 rounded shadow-xl">
       <div className="flex p-4 text-4xl border-b-2 border-dashed border-black">
@@ -84,12 +99,30 @@ const View = () => {
           <i class="fas fa-tasks"></i>&nbsp;Status: {statusTodo}
         </div>
       </div>
-      <div className="flex justify-end mx-2 pb-10">Tarefa criada em {dataCriacao}</div>
-      <div className="flex justify-between self-center w-1/2 p-4">
-        <Link to={`/edit/${todo._id}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Editar</Link>
-        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Deletar</button>
+      <div className="flex justify-end mx-2 pb-10">
+        Tarefa criada em {dataCriacao}
       </div>
-      
+      <div className="flex justify-between self-center w-1/2 p-4">
+        <Link
+          to={`/edit/${todo._id}`}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="button"
+        >
+          Editar
+        </Link>
+        <button
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="button"
+          onClick={onOpenModal}
+        >
+          Deletar
+        </button>
+      </div>
+
+      <Modal open={open} onClose={onCloseModal} center>
+        <h2>Confirma exclusão da tarefa?</h2>
+        <button onClick={handleDelete}>Sim</button>
+      </Modal>
     </div>
   );
 };
