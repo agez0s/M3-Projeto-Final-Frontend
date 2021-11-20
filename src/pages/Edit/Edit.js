@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useParams,  useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Api from "../../api/api";
 
 const Edit = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [todo, setTodo] = useState({});
   useEffect(() => {
     getTodoById();
@@ -14,6 +14,8 @@ const Edit = () => {
   const getTodoById = async () => {
     const request = await Api.fetchGetById(id);
     const todo = await request.json();
+    let prazo = todo.prazo.substr(0, 10);
+    todo.prazo = prazo;
     setTodo(todo);
   };
 
@@ -34,7 +36,7 @@ const Edit = () => {
         "bg-red-500 text-white font-bold py-2 px-4 rounded mt-4 w-full cursor-wait";
       botao.innerText = "⚠️ Erro no servidor";
       botao.disabled = true;
-      
+
       setTimeout(() => {
         navigate(`/view/${todo.id}`);
       }, 3000);
@@ -46,12 +48,11 @@ const Edit = () => {
         "bg-red-500 text-white font-bold py-2 px-4 rounded mt-4 w-full cursor-wait";
       botao.innerText = "⚠️ Erro no servidor";
       botao.disabled = true;
-      
+
       setTimeout(() => {
         navigate(`/view/${todo.id}`);
       }, 3000);
-    }
-    else {
+    } else {
       botao.className =
         "bg-green-500 text-white font-bold py-2 px-4 rounded mt-4 w-full cursor-wait";
       botao.innerHTML = "✏️ Tarefa editada!";
@@ -60,7 +61,6 @@ const Edit = () => {
         navigate("/");
       }, 3000);
     }
-    
   };
 
   return (
@@ -128,8 +128,10 @@ const Edit = () => {
             name="prioridade"
             className="w-full"
             onChange={handleFieldsChange}
-            
           >
+            <option selected disabled hidden>
+              Selecione
+            </option>
             <option value="0">Alta</option>
             <option value="1">Média</option>
             <option value="2">Baixa</option>
@@ -147,13 +149,14 @@ const Edit = () => {
             name="status"
             className="w-full"
             onChange={handleFieldsChange}
-            
           >
+            <option selected disabled hidden>
+              Selecione
+            </option>
             <option value="0">A fazer</option>
             <option value="1">Fazendo</option>
             <option value="2">Feito</option>
           </select>
-          
 
           <button
             type="submit"

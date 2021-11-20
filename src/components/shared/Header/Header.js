@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
-  
   return (
     <nav
       className="flex bg-gradient-to-r from-blue-800 via-blue-600 to-white text-white justify-between"
@@ -37,4 +36,4 @@ const Header = () => {
   );
 };
 
-export default Header
+export default Header;

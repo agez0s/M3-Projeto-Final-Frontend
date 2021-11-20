@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Cadastro = () => {
   const navigate = useNavigate();
-
+  let hoje = new Date().toISOString().substr(0, 10);
   const handleSubmit = async (evento) => {
     evento.preventDefault();
     const titulo = evento.target.titulo.value;
@@ -29,7 +29,7 @@ const Cadastro = () => {
         "bg-red-500 text-white font-bold py-2 px-4 rounded mt-4 w-full cursor-wait";
       botao.innerText = "⚠️ Erro no servidor";
       botao.disabled = true;
-      
+
       setTimeout(() => {
         navigate("/");
       }, 3000);
@@ -98,6 +98,7 @@ const Cadastro = () => {
             id="prazo"
             type="date"
             name="prazo"
+            value={hoje}
             className="border rounded border-blue w-full"
             required
           />
@@ -109,6 +110,10 @@ const Cadastro = () => {
             Prioridade
           </label>
           <select id="prioridade" name="prioridade" className="w-full">
+            <option selected disabled hidden>
+              Selecione
+            </option>
+
             <option value="0">Alta</option>
             <option value="1">Média</option>
             <option value="2">Baixa</option>
