@@ -7,8 +7,8 @@ const Edit = () => {
   const [todo, setTodo] = useState({});
   useEffect(() => {
     getTodoById();
-  }, []); //eslint-disable-next-line no-use-before-define
-
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const { id } = useParams();
 
   const getTodoById = async () => {

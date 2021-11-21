@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 const Cadastro = () => {
   const navigate = useNavigate();
-  let hoje = new Date().toISOString().substr(0, 10);
   const handleSubmit = async (evento) => {
     evento.preventDefault();
     const titulo = evento.target.titulo.value;
@@ -22,7 +21,6 @@ const Cadastro = () => {
       prioridade,
       status,
     };
-
     const request = await Api.fetchPost(todo);
     if (request.status === 500) {
       botao.className =
@@ -98,7 +96,6 @@ const Cadastro = () => {
             id="prazo"
             type="date"
             name="prazo"
-            value={hoje}
             className="border rounded border-blue w-full"
             required
           />

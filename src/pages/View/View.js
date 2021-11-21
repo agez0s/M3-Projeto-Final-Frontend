@@ -21,6 +21,7 @@ const View = () => {
   // chamando a funcao getMusicaById
   useEffect(() => {
     getTodoById();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // acessa o id no parametro da url;
@@ -32,16 +33,18 @@ const View = () => {
     const todo = await request.json();
     setTodo(todo);
   };
-
   let dataPrazo = new Date(todo.prazo).toLocaleString(undefined, {
     day: "numeric",
     month: "numeric",
     year: "numeric",
+    timeZone: "UTC"
+
   });
   let dataCriacao = new Date(todo.dataCriacao).toLocaleString(undefined, {
     day: "numeric",
     month: "numeric",
     year: "numeric",
+    timeZone: "UTC"
   });
   let hoje = new Date().toISOString();
   let textoPrazo = "";
