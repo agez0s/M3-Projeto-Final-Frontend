@@ -6,13 +6,15 @@ const Prazo = (props) => {
     (Date.parse(prazo) - Date.parse(hoje)) / 86400000
   );
   if (props.feito !== 2) {
-  if (diasDiferentes < 0) {
-    return "Prazo perdido";
-  } else {
-    return `${diasDiferentes - 1} dias`;
+    if (diasDiferentes <= 0) {
+      return "Prazo perdido";
+    } else if (diasDiferentes === 1) {
+      return "Menos de 1 dia!";
+    } else {
+      return `${diasDiferentes} dias`;
+    }
   }
+  return `Tarefa concluída!`;
 };
-return `Tarefa concluída!`
-}
 
 export default Prazo;
