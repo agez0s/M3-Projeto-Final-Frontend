@@ -46,11 +46,11 @@ const ListTodos = (props) => {
         </CardEsquerdo>
       </div>
       <div
-        className="flex flex-wrap m-4 p-4 self-start m-auto justify-center"
+        className="flex flex-wrap m-4 p-4 self-start mx-auto justify-center"
         style={{ maxWidth: "60%" }}
       >
         <div
-          className="w-full flex text-5xl justify-center mb-4"
+          className="w-full flex text-5xl justify-center mb-4 self-start"
           style={{ fontVariant: "normal" }}
         >
           Bem vindo! Listando suas tarefas:

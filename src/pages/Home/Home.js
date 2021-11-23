@@ -4,6 +4,7 @@ import Api from "../../api/api"
 
 const Home = () => {
   const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState("visible");
   useEffect(() => {
     getTodos();
   }, []);
@@ -11,9 +12,12 @@ const Home = () => {
     const request = await Api.fetchGetAll();
     const data = await request.json();
     setTodos(data);
+    setLoading("hidden")
   };
   return (
     <div className="container">
+      <div className="w-full h-full text-4xl justify-center black flex mt-10 absolute bg-white" style={{ visibility: loading }}>Carregando tarefas...</div>
+      
       <ListTodos data={todos} />
     </div>
   );

@@ -10,7 +10,10 @@ const View = () => {
   // inicializa o estado musica para poder fazer as alteracoes do dom.
   const navigate = useNavigate();
 
-  const [todo, setTodo] = useState({});
+  const [todo, setTodo] = useState({
+    titulo: "Carregando...",
+    descricao: "Carregando..."
+    });
 
   const [open, setOpen] = useState(false);
 
