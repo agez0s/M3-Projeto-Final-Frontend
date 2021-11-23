@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ListTodos from "../../components/structure/ListTodos/ListTodos";
+import Api from "../../api/api"
 
 const Home = () => {
   const [todos, setTodos] = useState([]);
@@ -7,7 +8,7 @@ const Home = () => {
     getTodos();
   }, []);
   const getTodos = async () => {
-    const request = await fetch("http://localhost:3001/");
+    const request = await Api.fetchGetAll();
     const data = await request.json();
     setTodos(data);
   };
